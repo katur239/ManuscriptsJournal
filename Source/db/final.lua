@@ -34,3 +34,7 @@ for _, tametomesData in pairs(addon.TameTomesDB) do
         addon.spellIDToDB[tametomesData.spellID] = tametomesData
     end
 end
+
+for _, PepeData in pairs(addon.PepeDB) do
+    addon.itemIDToDB[PepeData.itemID] = PepeData
+end

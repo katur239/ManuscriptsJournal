@@ -174,11 +174,17 @@ function ShapeshiftsMixin:LayoutCurrentPage()
 				-- Entry
 				numEntriesInUse = numEntriesInUse + 1;
 				local entry = self:AcquireFrame(self.shapeshiftEntryFrames, numEntriesInUse, "CHECKBUTTON", "ManuscriptSpellButtonTemplate");
-                if layoutData.itemID then
-                    entry.itemID = layoutData.itemID
-                else
-                    entry.spellID = layoutData.spellID
-                end
+				if type(layoutData) == "table" then
+					if layoutData.itemID then
+						entry.itemID = layoutData.itemID
+					else
+						entry.spellID = layoutData.spellID
+					end
+				elseif type(layoutData) == "number" then
+					entry.itemID = layoutData
+				else
+					--print(type(variable))
+				end
 
 				if entry:IsVisible() then
 					-- If the button was already visible (going to a new page and being reused) we have to update the button immediately instead of deferring the update through the OnShown

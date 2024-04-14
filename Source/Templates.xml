@@ -264,5 +264,7 @@
     <Include file="PolymorphsTab.xml"/>
     <Include file="GrimoiresTab.xml"/>
     <Include file="TameTomesTab.xml"/>
-    <Include file="SideTabs.xml"/>
+    <Include file="PepeTab.xml"/>
+	<Include file="SideTabs.xml"/>
+	
 </Ui>

@@ -80,6 +80,9 @@ function ParentMixin:OnLoad()
             elseif (selectedTab == 7) and (class == "HUNTER") then
                 TameTomesJournal:Show()
                 TameTomesJournal:EnableMouse(true)
+            elseif (selectedTab == 8) then
+                PepeJournal:Show()
+                PepeJournal:EnableMouse(true)
             end
         end
         tab.OnDeselect = function()
@@ -98,6 +101,7 @@ function ParentMixin:OnLoad()
             PolymorphsJournal:Hide()
             GrimoiresJournal:Hide()
             TameTomesJournal:Hide()
+            PepeJournal:Hide()
         end
         self.Tab = tab
     end
@@ -116,7 +120,8 @@ function ParentMixin:OnLoad()
         ManuscriptsSkillLineMageTab.tooltip = PolymorphsJournal.tabName
         ManuscriptsSkillLineWarlockTab.tooltip = GrimoiresJournal.tabName
         ManuscriptsSkillLineHunterTab.tooltip = TameTomesJournal.tabName
-        
+        ManuscriptsSkillLinePepeTab.tooltip = PepeJournal.tabName
+
         ManuscriptsSkillLineManuscriptsTab:SetNormalTexture(254288)
         ManuscriptsSkillLineDruidTab:SetNormalTexture(136036)
         ManuscriptsSkillLineSoulshapesTab:SetNormalTexture(GetSpellTexture(310143))
@@ -124,33 +129,49 @@ function ParentMixin:OnLoad()
         ManuscriptsSkillLineMageTab:SetNormalTexture(GetSpellTexture(118))
         ManuscriptsSkillLineWarlockTab:SetNormalTexture(GetSpellTexture(688))
         ManuscriptsSkillLineHunterTab:SetNormalTexture(GetSpellTexture(1515))
-        
+        ManuscriptsSkillLinePepeTab:SetNormalTexture(GetSpellTexture(181943))
+
+        local anchor = ManuscriptsSkillLineManuscriptsTab
         if class == "DRUID" then
+            anchor = ManuscriptsSkillLineDruidTab
             ManuscriptsSkillLineManuscriptsTab:Show()
             ManuscriptsSkillLineDruidTab:Show()
-            ManuscriptsSkillLineSoulshapesTab:SetPoint("TOPLEFT", ManuscriptsSkillLineDruidTab, "BOTTOMLEFT", 0, -17)
         elseif class == "SHAMAN" then
+            anchor = ManuscriptsSkillLineShamanTab
             ManuscriptsSkillLineManuscriptsTab:Show()
             ManuscriptsSkillLineShamanTab:Show()
-            ManuscriptsSkillLineSoulshapesTab:SetPoint("TOPLEFT", ManuscriptsSkillLineShamanTab, "BOTTOMLEFT", 0, -17)
         elseif class == "MAGE" then
+            anchor = ManuscriptsSkillLineMageTab
             ManuscriptsSkillLineManuscriptsTab:Show()
             ManuscriptsSkillLineMageTab:Show()
-            ManuscriptsSkillLineSoulshapesTab:SetPoint("TOPLEFT", ManuscriptsSkillLineMageTab, "BOTTOMLEFT", 0, -17)
         elseif class == "WARLOCK" then
+            anchor = ManuscriptsSkillLineWarlockTab
             ManuscriptsSkillLineManuscriptsTab:Show()
             ManuscriptsSkillLineWarlockTab:Show()
-            ManuscriptsSkillLineSoulshapesTab:SetPoint("TOPLEFT", ManuscriptsSkillLineWarlockTab, "BOTTOMLEFT", 0, -17)
         elseif class == "HUNTER" then
+            anchor = ManuscriptsSkillLineHunterTab
             ManuscriptsSkillLineManuscriptsTab:Show()
             ManuscriptsSkillLineHunterTab:Show()
-            ManuscriptsSkillLineSoulshapesTab:SetPoint("TOPLEFT", ManuscriptsSkillLineHunterTab, "BOTTOMLEFT", 0, -17)
         end
         
         if C_Covenants.GetActiveCovenantID() == 3 then
+            ManuscriptsSkillLineSoulshapesTab:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -17)            
+
             ManuscriptsSkillLineManuscriptsTab:Show()
             ManuscriptsSkillLineSoulshapesTab:Show()
         end
+
+        if PlayerHasToy(122293) or PlayerHasToy(209859) then
+            if C_Covenants.GetActiveCovenantID() == 3 then
+                ManuscriptsSkillLinePepeTab:SetPoint("TOPLEFT", ManuscriptsSkillLineSoulshapesTab, "BOTTOMLEFT", 0, -17)
+            else
+                ManuscriptsSkillLinePepeTab:SetPoint("TOPLEFT", anchor, "BOTTOMLEFT", 0, -17)            
+            end
+
+            ManuscriptsSkillLineManuscriptsTab:Show()
+            ManuscriptsSkillLinePepeTab:Show()
+        end
+
     end)
 end
 
@@ -318,11 +339,11 @@ hooksecurefunc("ToggleCollectionsJournal", function(tab)
 end)
 
 function ParentMixin:GetAllPanels()
-    return {ManuscriptsJournal, ShapeshiftsJournal, SoulshapesJournal, HexTomesJournal, PolymorphsJournal, GrimoiresJournal, TameTomesJournal}
+    return {ManuscriptsJournal, ShapeshiftsJournal, SoulshapesJournal, HexTomesJournal, PolymorphsJournal, GrimoiresJournal, TameTomesJournal, PepeJournal}
 end
 
 function ParentMixin:GetAllTabs()
-    return {ManuscriptsSkillLineManuscriptsTab, ManuscriptsSkillLineDruidTab, ManuscriptsSkillLineSoulshapesTab, ManuscriptsSkillLineShamanTab, ManuscriptsSkillLineMageTab, ManuscriptsSkillLineWarlockTab, ManuscriptsSkillLineHunterTab}
+    return {ManuscriptsSkillLineManuscriptsTab, ManuscriptsSkillLineDruidTab, ManuscriptsSkillLineSoulshapesTab, ManuscriptsSkillLineShamanTab, ManuscriptsSkillLineMageTab, ManuscriptsSkillLineWarlockTab, ManuscriptsSkillLineHunterTab, ManuscriptsSkillLinePepeTab}
 end
 
 function ParentMixin:GetPanelByTab(tab)
@@ -334,6 +355,7 @@ function ParentMixin:GetPanelByTab(tab)
         [ManuscriptsSkillLineMageTab] = PolymorphsJournal, 
         [ManuscriptsSkillLineWarlockTab] = GrimoiresJournal,
         [ManuscriptsSkillLineHunterTab] = TameTomesJournal,
+        [ManuscriptsSkillLinePepeTab] = PepeJournal,
     }
     return panels[tab]
 end

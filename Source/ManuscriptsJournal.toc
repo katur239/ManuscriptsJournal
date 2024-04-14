@@ -56,6 +56,7 @@ db\HexTomes.lua
 db\PolymorphTomes.lua
 db\TameTomes.lua
 db\WarlockDemonTomes.lua
+db\PepeCostumes.lua
 db\final.lua
 
 Templates.xml
